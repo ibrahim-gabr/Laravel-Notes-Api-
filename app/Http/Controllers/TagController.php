@@ -88,7 +88,10 @@ class TagController extends Controller
     public function destroy(Tag $tag)
     {
         $tag_delete = Tag::where('id' ,$tag->id)->first();
+        $notes = $tag_delete->notes()->get();
+        
         $tag_delete->notes()->detach();
+        $notes->each->delete();
         $tag_delete->delete();
         return $tag_delete->toJson();
 

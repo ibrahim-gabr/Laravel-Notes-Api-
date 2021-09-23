@@ -3,6 +3,7 @@
 namespace App\Transformers;
 
 use League\Fractal\TransformerAbstract;
+use App\Transformers\NoteTransformer;
 
 class TagTransformer extends TransformerAbstract
 {
@@ -34,7 +35,7 @@ class TagTransformer extends TransformerAbstract
         return [
             "id" => (int)$tag->id,
             "name" => (string)$tag->name,
-            "notes" => $tag->notes()->get(),
+            "notes" => $tag->notes()->get()->transformWith(new NoteTransformer()),
       
         ];
     }
